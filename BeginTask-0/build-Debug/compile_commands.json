@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/audice/GIT/SecondYear/BeginTask-0/build-Debug",
+  "command": "/usr/bin/g++-12   -g -o CMakeFiles/main.dir/main.cpp.o -c /home/audice/GIT/SecondYear/BeginTask-0/main.cpp",
+  "file": "/home/audice/GIT/SecondYear/BeginTask-0/main.cpp"
+},
+{
+  "directory": "/home/audice/GIT/SecondYear/BeginTask-0/build-Debug",
+  "command": "/usr/bin/g++-12   -g -o CMakeFiles/main.dir/tests.cpp.o -c /home/audice/GIT/SecondYear/BeginTask-0/tests.cpp",
+  "file": "/home/audice/GIT/SecondYear/BeginTask-0/tests.cpp"
+}
+]

@@ -1,0 +1,3 @@
+/home/audice/GIT/SecondYear/BeginTask-0/build-Debug/CMakeFiles/main.dir
+/home/audice/GIT/SecondYear/BeginTask-0/build-Debug/CMakeFiles/edit_cache.dir
+/home/audice/GIT/SecondYear/BeginTask-0/build-Debug/CMakeFiles/rebuild_cache.dir
