@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="3" failures="3" disabled="0" errors="0" time="0.016" timestamp="2024-09-25T18:13:58.102" name="AllTests">
+  <testsuite name="TestGroupName" tests="3" failures="3" disabled="0" skipped="0" errors="0" time="0.016" timestamp="2024-09-25T18:13:58.102">
+    <testcase name="Subtest_1" status="run" result="completed" time="0" timestamp="2024-09-25T18:13:58.102" classname="TestGroupName">
+      <failure message="/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0/tests.cpp:19&#x0A;Value of: res&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0/tests.cpp:19
+Value of: res
+  Actual: false
+Expected: true]]></failure>
+    </testcase>
+    <testcase name="Subtest_2" status="run" result="completed" time="0" timestamp="2024-09-25T18:13:58.102" classname="TestGroupName">
+      <failure message="/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0/tests.cpp:29&#x0A;Value of: res&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0/tests.cpp:29
+Value of: res
+  Actual: false
+Expected: true]]></failure>
+    </testcase>
+    <testcase name="Subtest_3" status="run" result="completed" time="0.015" timestamp="2024-09-25T18:13:58.102" classname="TestGroupName">
+      <failure message="/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0/tests.cpp:63&#x0A;Value of: res&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0/tests.cpp:63
+Value of: res
+  Actual: false
+Expected: true]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
