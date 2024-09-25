@@ -105,15 +105,6 @@ jobs:
         shell: bash
         run: pip install gspread
 
-        
-      - name: Configure
-        shell: bash
-        working-directory: /home/runner/work/SecondYear/SecondYear
-        run: |
-          mkdir build
-          mkdir instdir
-          cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -B ./build -G Ninja
-
       - name: See test ls
         if: always()
         shell: bash
@@ -141,6 +132,9 @@ jobs:
         shell: bash
         working-directory: /home/runner/work/SecondYear/SecondYear/BeginTask-0
         run: |
+          mkdir build
+          mkdir instdir
+          cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -B ./build -G Ninja
           ./build/main
 
       - name: 1-type seconds
