@@ -73,7 +73,6 @@ jobs:
           echo Update ninja =======================================================================
           echo ninja version before
           ninja --version
-          # wget https://github.com/ninja-build/ninja/releases/download/v1.10.0/ninja-linux.zip
           wget https://github.com/ninja-build/ninja/releases/latest/download/ninja-linux.zip
           sudo unzip ninja-linux.zip -d /usr/local/bin/
           sudo update-alternatives --install /usr/bin/ninja ninja /usr/local/bin/ninja 1 --force
@@ -82,8 +81,6 @@ jobs:
           echo Update cmake ========================================================================
           echo cmake version before
           cmake --version
-          # curl --silent "https://api.github.com/repos/Kitware/CMake/releases/latest" | sed -n 's/.*tag_name":\s"\(.*\)".*/\1/p' | head -2
-          # wget https://github.com/Kitware/CMake/releases/latest/download/cmake-3.16.5-Linux-x86_64.sh
           cmake_version=$(curl --silent "https://api.github.com/repos/Kitware/CMake/releases/latest" | sed -n 's/.*tag_name":\s"\(.*\)".*/\1/p' | head -2 | cut -c 2-)
           echo cmake download latest v$cmake_version version
           wget https://github.com/Kitware/CMake/releases/download/v$cmake_version/cmake-$cmake_version-Linux-x86_64.sh
@@ -93,6 +90,8 @@ jobs:
           sudo update-alternatives --install /usr/bin/cmake cmake /opt/cmake/bin/cmake 1 --force
           echo cmake version after
           cmake --version
+          sudo apt-get install libgtest-dev libgmock-dev
+          sudo apt-get install libtbb-dev
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -111,21 +110,16 @@ jobs:
           mkdir build
           mkdir instdir
           cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -B ./build -G Ninja
-          
-      - name: Build
-        shell: bash
-        working-directory: /home/runner/work/BEST_3823B1FI3/BEST_3823B1FI3
-        run: cmake --build ./build --config ${{ matrix.config.build_type }}
 
-      - name: See build 2
+      - name: See test ls
         if: always()
         shell: bash
-        working-directory: /home/runner/work/BEST_3823B1FI3/BEST_3823B1FI3
+        working-directory: /home/runner/work/SecondYear/SecondYear
         run: ls
 
       - name: Very hard setting load json
         shell: bash
-        working-directory: /home/runner/work/BEST_3823B1FI3/BEST_3823B1FI3
+        working-directory: /home/runner/work/SecondYear/SecondYear
         run: |
           pip install pandas
           pip install gdown
