@@ -1,3 +1,0 @@
-/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0/build/CMakeFiles/main.dir
-/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0/build/CMakeFiles/edit_cache.dir
-/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0/build/CMakeFiles/rebuild_cache.dir

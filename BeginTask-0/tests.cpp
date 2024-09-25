@@ -5,20 +5,11 @@
 #include <fstream>
 #include <chrono>
 
-void appenddata(const char* test_name, int value) {
-  std::ofstream myfile;
-  myfile.open("../report.txt", std::ios::app);
-  myfile << test_name << ":" << value << "\n";
-  myfile.close();
-}
-
 TEST(TestGroupName, Subtest_1) {
     ArrayHandler<uint8_t> arrayHandler;
     arrayHandler.AppendElem(10);
     bool res = arrayHandler.GetMax() == 10;
     EXPECT_TRUE(res);
-    appenddata(::testing::UnitTest::GetInstance()->current_test_info()->name(),
-                res);
 }
 
 TEST(TestGroupName, Subtest_2) {
@@ -26,13 +17,11 @@ TEST(TestGroupName, Subtest_2) {
     arrayHandler.AppendElem(10);
     arrayHandler.AppendElem(-10);
     bool res = arrayHandler.GetMin() == -10;
-    EXPECT_TRUE(res); // _EQ(arrayHandler.GetMin(), -10);
-    appenddata(::testing::UnitTest::GetInstance()->current_test_info()->name(),
-                res);
+    EXPECT_TRUE(res);
 }
 
 TEST(TestGroupName, Subtest_3) {
-  bool res = true;
+    bool res = true;
     srand((unsigned)time(0)); 
     using std::chrono::high_resolution_clock;
     using std::chrono::duration_cast;
@@ -50,21 +39,16 @@ TEST(TestGroupName, Subtest_3) {
       }
       arrayHandler.AppendElem(0);
       arrayHandler.AppendElem(1000000010);
+
       if (arrayHandler.GetMax() != 1000000010
-          && arrayHandler.GetMin() != 0) {
-            res = false;
+          || arrayHandler.GetMin() != 0) {
+            EXPECT_TRUE(false);
             break;
       }
       check_count++;
     }
     auto t2 = high_resolution_clock::now();
-    auto ms_int = duration_cast<milliseconds>(t2 - t1);
-
-    EXPECT_TRUE(res); // _EQ(arrayHandler.GetMin(), -10);
-    if (res)
-      appenddata(::testing::UnitTest::GetInstance()->current_test_info()->name(),
-                ms_int.count());
-    else 
-      appenddata(::testing::UnitTest::GetInstance()->current_test_info()->name(),
-                0);
+    
+    EXPECT_TRUE(true);
+    //./main --gtest_output=xml:../outtsts
 }
