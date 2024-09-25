@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/audice/GIT/SecondYear/BeginTask-0/build-Debug",
-		"source" : "/home/audice/GIT/SecondYear/BeginTask-0"
+		"build" : "/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0/build",
+		"source" : "/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0"
 	},
 	"version" : 
 	{

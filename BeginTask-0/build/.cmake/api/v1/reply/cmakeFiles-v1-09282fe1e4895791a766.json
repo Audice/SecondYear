@@ -6,7 +6,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "build-Debug/CMakeFiles/3.22.1/CMakeSystem.cmake"
+			"path" : "build/CMakeFiles/3.22.1/CMakeSystem.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -15,11 +15,11 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "build-Debug/CMakeFiles/3.22.1/CMakeCCompiler.cmake"
+			"path" : "build/CMakeFiles/3.22.1/CMakeCCompiler.cmake"
 		},
 		{
 			"isGenerated" : true,
-			"path" : "build-Debug/CMakeFiles/3.22.1/CMakeCXXCompiler.cmake"
+			"path" : "build/CMakeFiles/3.22.1/CMakeCXXCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -125,8 +125,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/home/audice/GIT/SecondYear/BeginTask-0/build-Debug",
-		"source" : "/home/audice/GIT/SecondYear/BeginTask-0"
+		"build" : "/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0/build",
+		"source" : "/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0"
 	},
 	"version" : 
 	{

@@ -11,7 +11,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/audice/GIT/SecondYear/BeginTask-0/build-Debug"
+			"value" : "/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0/build"
 		},
 		{
 			"name" : "BeginTask-0_IS_TOP_LEVEL",
@@ -35,7 +35,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/audice/GIT/SecondYear/BeginTask-0"
+			"value" : "/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0"
 		},
 		{
 			"name" : "CMAKE_ADDR2LINE",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/audice/GIT/SecondYear/BeginTask-0/build-Debug"
+			"value" : "/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -128,22 +128,6 @@
 			],
 			"type" : "INTERNAL",
 			"value" : "1"
-		},
-		{
-			"name" : "CMAKE_COLOR_MAKEFILE",
-			"properties" : 
-			[
-				{
-					"name" : "ADVANCED",
-					"value" : "1"
-				},
-				{
-					"name" : "HELPSTRING",
-					"value" : "Enable/Disable color output during build."
-				}
-			],
-			"type" : "BOOL",
-			"value" : "ON"
 		},
 		{
 			"name" : "CMAKE_COMMAND",
@@ -579,7 +563,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "Unix Makefiles"
+			"value" : "Ninja"
 		},
 		{
 			"name" : "CMAKE_GENERATOR_INSTANCE",
@@ -627,7 +611,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/audice/GIT/SecondYear/BeginTask-0"
+			"value" : "/home/karchkov@unn.global/TESTS_CODE/SecondYear/BeginTask-0"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -679,11 +663,11 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "Path to a program."
+					"value" : "Program used to build from build.ninja files."
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gmake"
+			"value" : "/usr/bin/ninja"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
