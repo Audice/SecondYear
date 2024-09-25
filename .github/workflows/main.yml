@@ -130,7 +130,7 @@ jobs:
 
       - name: Load magscr, tstscr, mag
         shell: bash
-        working-directory: /home/runner/work/BEST_3823B1FI3/BEST_3823B1FI3
+        working-directory: /home/runner/work/SecondYear/SecondYear
         run: |
           gdown 1VLNuCVgDOw6PMqHMIsBl5xoYjYmPbCEK
           gdown 1qFuKKr6acDVp3JMEy1VaIqIgsfpAA2xD
@@ -139,10 +139,9 @@ jobs:
 
       - name: 0-Begin_Task
         shell: bash
-        working-directory: /home/runner/work/BEST_3823B1FI3/BEST_3823B1FI3
+        working-directory: /home/runner/work/SecondYear/SecondYear/BeginTask-0
         run: |
-          ./build/sum
-          python3 fill_magazine.py -t "0-Begin_Task" -r "$(echo $?)"
+          ./build/main
 
       - name: 1-type seconds
         if: always()
