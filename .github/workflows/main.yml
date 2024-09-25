@@ -58,6 +58,8 @@ jobs:
           ninja --version
           cmake --version
           gcc --version
+          sudo apt-get install libgtest-dev libgmock-dev
+          sudo apt-get install libtbb-dev
       - name: Install dependencies on ubuntu12
         if: startsWith(matrix.config.name, 'Ubuntu_GCC_12')
         run: |
