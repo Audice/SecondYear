@@ -1,0 +1,174 @@
+# This is a basic workflow to help you get started with Actions
+# workflow - цепочка действий
+# Имя процесса Билдится на всех типах 📦 🐍
+name: CMake Build Matrix
+
+# Controls when the action will run. Triggers the workflow on push
+on: 
+  push:
+  pull_request:
+  release:
+    # tags:
+    # - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }} # будет запускаться по очереди на всех типах машин
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11"]
+        config: 
+        - {
+            name: "Ubuntu_Latest_GCC",
+            os: ubuntu-latest,
+            artifact: "ubuntu_gcc.7z",
+            build_type: "Debug",
+            cc: "gcc",
+            cxx: "g++",
+            archiver: "7z a",
+            generators: "Ninja"
+          }
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Print env
+        run: |
+          echo github.event.action: ${{ github.event.action }}
+          echo github.event_name: ${{ github.event_name }}
+          echo login usera: ${{github.actor}}
+      - name: Install dependencies on windows
+        if: startsWith(matrix.config.os, 'windows')
+        run: |
+          choco install ninja cmake
+          ninja --version
+          cmake --version
+        # cmd "${{ matrix.config.environment_script }}"
+
+      - name: Install dependencies on ubuntu
+        if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
+        run: |
+          sudo apt-get update
+          sudo apt-get install ninja-build cmake
+          ninja --version
+          cmake --version
+          gcc --version
+      - name: Install dependencies on ubuntu9
+        if: startsWith(matrix.config.name, 'Ubuntu_GCC_9')
+        run: |
+          echo Update gcc-9 =======================================================================
+          echo gcc version before
+          gcc --version
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+          sudo apt-get update
+          sudo apt-get install ninja-build cmake gcc-9 g++-9
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 --slave /usr/bin/g++ g++ /usr/bin/g++-9 --slave /usr/bin/gcov gcov /usr/bin/gcov-9
+          echo gcc version after
+          gcc --version
+          echo Update ninja =======================================================================
+          echo ninja version before
+          ninja --version
+          # wget https://github.com/ninja-build/ninja/releases/download/v1.10.0/ninja-linux.zip
+          wget https://github.com/ninja-build/ninja/releases/latest/download/ninja-linux.zip
+          sudo unzip ninja-linux.zip -d /usr/local/bin/
+          sudo update-alternatives --install /usr/bin/ninja ninja /usr/local/bin/ninja 1 --force
+          echo ninja version after
+          ninja --version
+          echo Update cmake ========================================================================
+          echo cmake version before
+          cmake --version
+          # curl --silent "https://api.github.com/repos/Kitware/CMake/releases/latest" | sed -n 's/.*tag_name":\s"\(.*\)".*/\1/p' | head -2
+          # wget https://github.com/Kitware/CMake/releases/latest/download/cmake-3.16.5-Linux-x86_64.sh
+          cmake_version=$(curl --silent "https://api.github.com/repos/Kitware/CMake/releases/latest" | sed -n 's/.*tag_name":\s"\(.*\)".*/\1/p' | head -2 | cut -c 2-)
+          echo cmake download latest v$cmake_version version
+          wget https://github.com/Kitware/CMake/releases/download/v$cmake_version/cmake-$cmake_version-Linux-x86_64.sh
+          chmod +x cmake-$cmake_version-Linux-x86_64.sh
+          sudo mkdir /opt/cmake
+          sudo ./cmake-$cmake_version-Linux-x86_64.sh --prefix=/opt/cmake --skip-license
+          sudo update-alternatives --install /usr/bin/cmake cmake /opt/cmake/bin/cmake 1 --force
+          echo cmake version after
+          cmake --version
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install gspread
+        shell: bash
+        run: pip install gspread
+
+        
+      - name: Configure
+        shell: bash
+        working-directory: /home/runner/work/SecondYear/SecondYear
+        run: |
+          mkdir build
+          mkdir instdir
+          cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -B ./build -G Ninja
+          
+      - name: Build
+        shell: bash
+        working-directory: /home/runner/work/BEST_3823B1FI3/BEST_3823B1FI3
+        run: cmake --build ./build --config ${{ matrix.config.build_type }}
+
+      - name: See build 2
+        if: always()
+        shell: bash
+        working-directory: /home/runner/work/BEST_3823B1FI3/BEST_3823B1FI3
+        run: ls
+
+      - name: Very hard setting load json
+        shell: bash
+        working-directory: /home/runner/work/BEST_3823B1FI3/BEST_3823B1FI3
+        run: |
+          pip install pandas
+          pip install gdown
+          gdown 1L6dRqWVmXx5V16C0sQXFQUK43PBfJ4hX
+
+      - name: Load magscr, tstscr, mag
+        shell: bash
+        working-directory: /home/runner/work/BEST_3823B1FI3/BEST_3823B1FI3
+        run: |
+          gdown 1VLNuCVgDOw6PMqHMIsBl5xoYjYmPbCEK
+          gdown 1qFuKKr6acDVp3JMEy1VaIqIgsfpAA2xD
+          gdown 129gQ_wu82M4eud8mgmp8_C4jwA5TqRKa
+          ls
+
+      - name: 0-Begin_Task
+        shell: bash
+        working-directory: /home/runner/work/BEST_3823B1FI3/BEST_3823B1FI3
+        run: |
+          ./build/sum
+          python3 fill_magazine.py -t "0-Begin_Task" -r "$(echo $?)"
+
+      - name: 1-type seconds
+        if: always()
+        shell: bash
+        working-directory: /home/runner/work/BEST_3823B1FI3/BEST_3823B1FI3
+        run: |
+          ./build/1-type/seconds
+          python3 fill_magazine.py -t "seconds" -r "$(echo $?)"
+
+          
+      - name: Estimate
+        if: always()
+        shell: bash
+        working-directory: /home/runner/work/SecondYear/SecondYear
+        run: python3 testscript.py -p ${{github.actor}}
+
+      - name: Upload release asset
+        if: github.event_name == 'release' && (github.event.action == 'published' || github.event.action == 'created')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./${{ matrix.config.artifact }}
+          asset_name: ${{ matrix.config.artifact }}.zip
+          asset_content_type: application/zip
