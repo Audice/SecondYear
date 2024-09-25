@@ -135,7 +135,7 @@ jobs:
           mkdir build
           mkdir instdir
           cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -B ./build -G Ninja
-          ./build-Debug/main
+          ./build/main
 
       - name: 1-type seconds
         if: always()
