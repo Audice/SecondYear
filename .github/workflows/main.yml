@@ -58,16 +58,16 @@ jobs:
           ninja --version
           cmake --version
           gcc --version
-      - name: Install dependencies on ubuntu9
-        if: startsWith(matrix.config.name, 'Ubuntu_GCC_9')
+      - name: Install dependencies on ubuntu12
+        if: startsWith(matrix.config.name, 'Ubuntu_GCC_12')
         run: |
-          echo Update gcc-9 =======================================================================
+          echo Update gcc-12 =======================================================================
           echo gcc version before
           gcc --version
           sudo add-apt-repository ppa:ubuntu-toolchain-r/test
           sudo apt-get update
-          sudo apt-get install ninja-build cmake gcc-9 g++-9
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 --slave /usr/bin/g++ g++ /usr/bin/g++-9 --slave /usr/bin/gcov gcov /usr/bin/gcov-9
+          sudo apt-get install ninja-build cmake gcc-12 g++-12
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 90 --slave /usr/bin/g++ g++ /usr/bin/g++-12 --slave /usr/bin/gcov gcov /usr/bin/gcov-12
           echo gcc version after
           gcc --version
           echo Update ninja =======================================================================
@@ -90,6 +90,7 @@ jobs:
           sudo update-alternatives --install /usr/bin/cmake cmake /opt/cmake/bin/cmake 1 --force
           echo cmake version after
           cmake --version
+          echo Install google test lib ========================================================================
           sudo apt-get install libgtest-dev libgmock-dev
           sudo apt-get install libtbb-dev
 
