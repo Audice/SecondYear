@@ -22,13 +22,7 @@ TEST(TestGroupName, Subtest_2) {
 
 TEST(TestGroupName, Subtest_3) {
     bool res = true;
-    srand((unsigned)time(0)); 
-    using std::chrono::high_resolution_clock;
-    using std::chrono::duration_cast;
-    using std::chrono::duration;
-    using std::chrono::milliseconds;
     int check_count = 0;
-    auto t1 = high_resolution_clock::now();
     while (check_count < 100) {
       ArrayHandler<uint32_t> arrayHandler;
       size_t elem_count = 0;
@@ -47,8 +41,5 @@ TEST(TestGroupName, Subtest_3) {
       }
       check_count++;
     }
-    auto t2 = high_resolution_clock::now();
-    
     EXPECT_TRUE(true);
-    //./main --gtest_output=xml:../outtsts
 }
