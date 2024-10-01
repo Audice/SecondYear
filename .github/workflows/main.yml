@@ -137,10 +137,18 @@ jobs:
           mkdir instdir
           cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -B ./build -G Ninja
           cmake --build ./build --config ${{ matrix.config.build_type }}
-          ./build/main --gtest_output=json:../report.json
           gdown 1h8WuhuSvkxJrDyyXZPokyp0w-a3o5Jka
           gdown 16hhW-MiiHFEKbhKzwli2twAVJjHuGNHg
-          python3 testscript.py -p ${{github.actor}}
+          ls
+          ./build/main --gtest_output=json:../report.json
+
+        - name: 0-Begin_Task_Test
+          if: always()
+          shell: bash
+          working-directory: /home/runner/work/SecondYear/SecondYear/BeginTask-0
+          run: |
+            ls
+            python3 testscript.py -p ${{github.actor}}
 
 
       - name: 1-type seconds
