@@ -129,6 +129,7 @@ jobs:
           ls
 
       - name: 0-Begin_Task
+        if: always()
         shell: bash
         working-directory: /home/runner/work/SecondYear/SecondYear/BeginTask-0
         run: |
