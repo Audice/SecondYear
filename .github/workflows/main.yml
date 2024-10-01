@@ -142,13 +142,13 @@ jobs:
           ls
           ./build/main --gtest_output=json:../report.json
 
-        - name: 0-Begin_Task_Test
-          if: always()
-          shell: bash
-          working-directory: /home/runner/work/SecondYear/SecondYear/BeginTask-0
-          run: |
-            ls
-            python3 testscript.py -p ${{github.actor}}
+      - name: 0-Begin_Task_Test
+        if: always()
+        shell: bash
+        working-directory: /home/runner/work/SecondYear/SecondYear/BeginTask-0
+        run: |
+          ls
+          python3 testscript.py -p ${{github.actor}}
 
 
       - name: 1-type seconds
