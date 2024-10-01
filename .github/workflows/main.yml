@@ -140,7 +140,8 @@ jobs:
           gdown 1h8WuhuSvkxJrDyyXZPokyp0w-a3o5Jka
           gdown 16hhW-MiiHFEKbhKzwli2twAVJjHuGNHg
           ls
-          ./build/main --gtest_output=json:../report.json
+          cd build
+          ./main --gtest_output=json:../report.json
 
       - name: 0-Begin_Task_Test
         if: always()
