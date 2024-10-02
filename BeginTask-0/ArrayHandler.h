@@ -2,7 +2,7 @@
 #include <cstring>
 #include <iostream>
 
-template<typename T>
+template<typename T>  //pupupu
 class ArrayHandler {
 private:
     size_t _size;
