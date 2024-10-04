@@ -15,8 +15,8 @@ TEST(TestGroupName, Subtest_1) {
 TEST(TestGroupName, Subtest_2) {
     ArrayHandler<uint8_t> arrayHandler;
     arrayHandler.AppendElem(10);
-    arrayHandler.AppendElem(-10);
-    bool res = arrayHandler.GetMin() == -10;
+    arrayHandler.AppendElem(1);
+    bool res = arrayHandler.GetMin() == 1;
     EXPECT_TRUE(res);
 }
 
