@@ -25,11 +25,11 @@ jobs:
         config: 
         - {
             name: "Ubuntu_Latest_GCC",
-            os: ubuntu-latest,
+            os: ubuntu-22.04,
             artifact: "ubuntu_gcc.7z",
             build_type: "Debug",
-            cc: "gcc",
-            cxx: "g++",
+            cc: "gcc-14",
+            cxx: "g++-14",
             archiver: "7z a",
             generators: "Ninja"
           }
@@ -135,7 +135,7 @@ jobs:
         run: |
           mkdir build
           mkdir instdir
-          cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -B ./build -G Ninja
+          cmake --no-warn-unused-cli -D CMAKE_C_COMPILER=gcc-4.2 -D CMAKE_CXX_COMPILER=g++-4.2 -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -B ./build -G Ninja
           cmake --build ./build --config ${{ matrix.config.build_type }}
           gdown 1h8WuhuSvkxJrDyyXZPokyp0w-a3o5Jka
           gdown 16hhW-MiiHFEKbhKzwli2twAVJjHuGNHg
