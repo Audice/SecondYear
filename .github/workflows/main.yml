@@ -109,7 +109,9 @@ jobs:
         if: always()
         shell: bash
         working-directory: /home/runner/work/SecondYear/SecondYear
-        run: ls
+        run: |
+          ls
+          gcc --version
 
       - name: Very hard setting load json
         shell: bash
