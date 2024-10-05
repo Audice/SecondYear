@@ -14,4 +14,4 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(main main.cpp tests.cpp)
 
-target_link_libraries(main gtest)
+target_link_libraries(main gtest gmock)
