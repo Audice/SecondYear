@@ -153,15 +153,28 @@ jobs:
           ls
           python3 testscript.py -p ${{github.actor}}
 
-
-      - name: 1-type seconds
+      - name: 2-BitField
         if: always()
         shell: bash
-        working-directory: /home/runner/work/BEST_3823B1FI3/BEST_3823B1FI3
+        working-directory: /home/runner/work/SecondYear/SecondYear/BitField-2
         run: |
-          ./build/1-type/seconds
-          python3 fill_magazine.py -t "seconds" -r "$(echo $?)"
+          mkdir build
+          mkdir instdir
+          cmake --no-warn-unused-cli -D CMAKE_C_COMPILER=gcc-12 -D CMAKE_CXX_COMPILER=g++-12 -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -B ./build -G Ninja
+          cmake --build ./build --config ${{ matrix.config.build_type }}
+          gdown 1h8WuhuSvkxJrDyyXZPokyp0w-a3o5Jka
+          gdown 16hhW-MiiHFEKbhKzwli2twAVJjHuGNHg
+          ls
+          cd build
+          ./main --gtest_output=json:../report.json
 
+      - name: 2-BitField_Test
+        if: always()
+        shell: bash
+        working-directory: /home/runner/work/SecondYear/SecondYear/BitField-2
+        run: |
+          ls
+          python3 testscript.py -p ${{github.actor}}
           
       - name: Estimate
         if: always()

@@ -19,7 +19,7 @@ TEST(TestGroupName, Subtest_2) {
 
 TEST(TestGroupName, Subtest_3) {
 
-    const int size = 4;
+    const size_t size = 4;
     BitField bf1(size), bf2(size), expBf(size);
     // bf1 = 0011
     bf1.SetBit(2);
@@ -38,10 +38,10 @@ TEST(TestGroupName, Subtest_3) {
 
 TEST(TestGroupName, Subtest_4) {
 
-    const int size = 38;
+    const size_t size = 38;
     BitField bf(size), negBf(size), expNegBf(size);
 
-    std::vector<int> bits;
+    std::vector<uint64_t> bits;
     bits.push_back(0);
     bits.push_back(1);
     bits.push_back(14);
@@ -49,14 +49,14 @@ TEST(TestGroupName, Subtest_4) {
     bits.push_back(33);
     bits.push_back(37);
 
-    for (unsigned int i = 0; i < bits.size(); i++)
+    for (size_t i = 0; i < bits.size(); i++)
       bf.SetBit(bits[i]);
 
     negBf = ~bf;
 
-    for(int i = 0; i < size; i++)
+    for(size_t i = 0; i < size; i++)
       expNegBf.SetBit(i);
-    for (unsigned int i = 0; i < bits.size(); i++)
+    for (size_t i = 0; i < bits.size(); i++)
       expNegBf.ClrBit(bits[i]);
 
     EXPECT_EQ(expNegBf, negBf);
@@ -64,7 +64,7 @@ TEST(TestGroupName, Subtest_4) {
 
 TEST(TestGroupName, Subtest_5) {
 
-    const int size1 = 5, size2 = 7;
+    const size_t size1 = 5, size2 = 7;
     Set set1(size1), set2(size2), set3(size1), expSet(size2);
     set1.InsElem(1);
     set1.InsElem(2);
@@ -82,7 +82,7 @@ TEST(TestGroupName, Subtest_5) {
 }
 
 TEST(TestGroupName, Subtest_6) {
-    const int size = 4;
+    const size_t size = 4;
     Set set(size), set1(size), expSet(size);
     // set1 = {1, 3}
     set.InsElem(1);
@@ -95,7 +95,7 @@ TEST(TestGroupName, Subtest_6) {
 }
 
 TEST(TestGroupName, Subtest_7) {
-    const int size = 5;
+    const size_t size = 5;
     Set set1(size), set2(size), set3(size), expSet(size);
     // set1 = {1, 2, 4}
     set1.InsElem(1);
@@ -114,6 +114,7 @@ TEST(TestGroupName, Subtest_7) {
 
     EXPECT_EQ(expSet, set3);
 }
+
 TEST(TestGroupName, Subtest_8) {
     std::vector<uint64_t> simple = {1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139,
     149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349,
@@ -145,3 +146,30 @@ TEST(TestGroupName, Subtest_8) {
 
     EXPECT_TRUE(flag);
 }
+
+TEST(TestGroupName, Subtest_9) {
+  const size_t size1 = 2, size2 = 5;
+  BitField bf1(size1), bf2(size2);
+  for (size_t i = 0; i < size1; i++)
+  {
+    bf1.SetBit(i);
+  }
+  bf2 = bf1;
+
+  EXPECT_EQ(bf1.GetLength(), bf2.GetLength());
+}
+
+
+TEST(TestGroupName, Subtest_10) {
+  const size_t size = 4;
+  Set set1(size), set2(size);
+  // set1 = {1, 3}
+  set1.InsElem(1);
+  set1.InsElem(3);
+  // set2 = {1, 2}
+  set2.InsElem(1);
+  set2.InsElem(2);
+
+  EXPECT_EQ(1, set1 != set2);
+}
+
