@@ -15,7 +15,7 @@ public:
     BitField(size_t len);
     BitField(const BitField& tmp);
     BitField& operator=(const BitField& tmp);
-
+    
     size_t GetLength() const;
     void SetBit(size_t n);
     void ClrBit(size_t n);
@@ -28,7 +28,7 @@ public:
     bool operator==(const BitField& tmp) const;
     BitField operator~();
 
-    ~BitField() {
+    ~BitField(){
 
     }
-};
+}; 

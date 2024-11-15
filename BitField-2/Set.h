@@ -34,3 +34,4 @@ public:
     friend istream& operator>>(istream& istr, Set& bf);
     friend ostream& operator<<(ostream& ostr, const Set& bf);
 };
+

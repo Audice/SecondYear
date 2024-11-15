@@ -1,109 +1,103 @@
-#include "Set.h"
+#include "BitField.h"
 
 
-Set::Set(size_t mp) : _bitField(10) {
-    _maxPower = mp;
+size_t BitField::GetMemIndex(size_t n) const{
+    return (n / (sizeof(uint16_t) * 8));
 }
-Set::Set(const Set& s) : _bitField(10) {
-    _maxPower = s.GetMaxPower();
-}
-Set::Set(const BitField& bf) : _bitField(10) {
-
+uint16_t BitField::GetMask(size_t n) const {
+    if ((n > _sizeBit) || (n < 0)) throw "incorrect";
+	return 1 << (n & (sizeof(uint16_t) * 8 - 1));
 }
 
-size_t Set::GetMaxPower() const {
-    return _maxPower;
-}
-void Set::InsElem(const uint64_t Elem) {
-    if ((Elem < _maxPower) & (Elem >= 0))
-        _bitField.SetBit(Elem); else throw "Negative n";
-}
-void Set::DelElem(const uint64_t Elem) {
-    if ((Elem < _maxPower) & (Elem >= 0))
-        _bitField.ClrBit(Elem); else throw "Negative n";
-}
-bool Set::IsMember(const uint64_t Elem) const {
-    if ((Elem < _maxPower) & (Elem >= 0))
-        if (_bitField.GetBit(Elem) == 1) return 1;
-        else return 0; else throw "Negative Elem";
+BitField::BitField(size_t len) {
+if (len < 0) throw "length can`t be negative";
+	_sizeBit = len;
+	_memSize = _sizeBit / (sizeof(uint16_t) * 8) + 1;
+	_mem = new uint16_t[_memSize];
+	for (int i = 0; i < _memSize; i++) _mem[i] = 0;
 }
 
+BitField::BitField(const BitField& tmp) {
+_sizeBit = tmp._sizeBit;
+	_memSize = tmp._memSize;
+	_mem = new uint16_t[_memSize];
+	for (int i = 0; i < _memSize; i++) _mem[i] = tmp._mem[i];
+}
 
-bool Set::operator== (const Set& s) const {
-    if (_maxPower != s.GetMaxPower())
-        return 0;
-
-    for (int i = 0; i < _maxPower; ++i)
-    {
-        if (_bitField.GetBit(i) != s._bitField.GetBit(i))
-            return 0;
+BitField& BitField::operator=(const BitField& tmp) {
+    if (this == &tmp) {
+		return(*this);
     }
-    return 1;
+	_sizeBit = tmp._sizeBit;
+	_memSize = tmp._memSize;
+	delete[] _mem;
+	_mem = new uint16_t[_memSize];
+	for (int i = 0; i < _memSize; i++) 
+		_mem[i] = tmp._mem[i];
+	return *this;
 }
-bool Set::operator!= (const Set& s) const {
-    return !(*this == s);
+    
+size_t BitField::GetLength() const {
+    return _sizeBit;
 }
-Set& Set::operator=(const Set& s) {
-    return *this;
+void BitField::SetBit(size_t n) {
+if ((n > _sizeBit) || (n < 0)) throw "incorrect n";
+	_mem[GetMemIndex(n)] = (GetMask(n) | _mem[GetMemIndex(n)]);
 }
-Set Set::operator+ (const uint64_t Elem) {
-    Set a(*this);
-    if ((Elem < _maxPower) & (Elem >= 0)) {
-        a.InsElem(Elem);
-    }
-    else throw "Negative Elem";
-    return a;
+void BitField::ClrBit(size_t n) {
+if ((n > _sizeBit) || (n < 0)) throw "Negative n";
+	_mem[GetMemIndex(n)] &= (~GetMask(n));
 }
-
-Set Set::operator- (const uint64_t Elem) {
-    Set a(*this);
-    if ((Elem < _maxPower) & (Elem >= 0)) {
-        a.DelElem(Elem);
-    }
-    else throw "Negative Elem";
-    return a;
+uint8_t BitField::GetBit(size_t n) const {
+    if ((n > _sizeBit) || (n < 0)) throw "Negative n";
+	if (_mem[GetMemIndex(n)] & GetMask(n)) return 1; else return 0;
 }
-
-Set Set::operator+ (const Set& s) {
-    Set A(max(_maxPower, s.GetMaxPower()));
-    A._bitField = _bitField | s._bitField;
-    return A;
+BitField BitField::operator|(const BitField& tmp) {
+    BitField bf(max(_sizeBit, tmp._sizeBit));
+	for (int i = 0; i < _sizeBit; i++) {
+		if (GetBit(i)) {
+			bf.SetBit(i);
+		}
+	}
+	for (int i = 0; i < tmp._memSize; i++) {
+		bf._mem[i] = bf._mem[i] |= tmp._mem[i];
+	}
+	return (bf);
 }
-Set Set::operator* (const Set& s) {
-    Set a(_bitField & s._bitField);
-    return a;
+BitField BitField::operator&(const BitField& tmp) {
+    BitField bf(max(_sizeBit, tmp._sizeBit));
+	for (int i = 0; i < min(_memSize, tmp._memSize); i++) {
+		bf._mem[i] = _mem[i] & tmp._mem[i];
+	}
+	return (bf);
 }
-Set Set::operator~ () {
-    Set a(~_bitField);
-    return a;
-}
-std::vector<uint64_t> Set::GetPrimary() {
-    return std::vector<uint64_t>();
-}
-istream& operator>>(istream& istr, Set& s)
-{
-    for (int i = 0; i < s._maxPower; i++) {
-        s.DelElem(i);
-    }
-    cout << "Input your set (enter any negative to stop)" << endl;
-    int i;
-
-    while (1) {
-        istr >> i;
-        if (i < 0) {
-            return istr;
-        }
-        if ((i > s._maxPower)) {
-            throw "OUTOFRANGE";
-        }
-        s.InsElem(i);
-    }
-    return istr;
+BitField BitField::operator^(const BitField& tmp) {
+    BitField result(_sizeBit);
+    for (int i = 0; i < _memSize; i++)
+        result._mem[i] = _mem[i] ^ tmp._mem[i];
+    return result;
 }
 
-ostream& operator<<(ostream& ostr, const Set& s)
-{
-    cout << s._bitField;
-    return ostr;
+bool BitField::operator==(const BitField& tmp) const{
+    if (_sizeBit != tmp.GetLength())
+		return 0;
+	else
+	{
+		for (int i = 0; i < _sizeBit; ++i)
+		{
+			if (GetBit(i) != tmp.GetBit(i))
+				return 0;
+		}
+	}
+	return 1;
+}
+BitField BitField::operator~(){
+    BitField a(*this);
+	for (int i = 0; i < (a._memSize - 1); i++) a._mem[i] = ~(a._mem[i]);
+	for (int i = ((a._memSize - 1) * (sizeof(uint16_t) * 8)); i < (a._sizeBit); i++) {
+		if (a.GetBit(i) == 1) a.ClrBit(i);
+		else a.SetBit(i);
+	}
+	return a;
 }
 
